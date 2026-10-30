@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AS1WD - Mod Updates</title>
+</head>
+<body>
+    <h1>Alien Shooter: World Domination</h1>
+    <p id="status">Loading update information...</p>
+
+    <h2>Download destinations</h2>
+    <ul id="downloads"></ul>
+
+    <h2>Honorable Mentions</h2>
+    <ul id="mentions"></ul>
+
+    <p><a href="./version.json">View version.json</a></p>
+
+    <script>
+        fetch("./version.json", { cache: "no-store" })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Unable to retrieve version.json");
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById("status").textContent =
+                    "Latest version: " + data.version +
+                    " — " + data.message;
+
+                function addLinks(elementId, items) {
+                    const list = document.getElementById(elementId);
+
+                    (items || []).forEach(item => {
+                        const li = document.createElement("li");
+                        const link = document.createElement("a");
+
+                        link.textContent = item.name;
+                        link.href = item.url;
+                        link.target = "_blank";
+                        link.rel = "noopener noreferrer";
+
+                        li.appendChild(link);
+                        list.appendChild(li);
+                    });
+                }
+
+                addLinks("downloads", data.download_urls);
+                addLinks("mentions", data.honorable_mentions);
+            })
+            .catch(error => {
+                document.getElementById("status").textContent =
+                    "Update information unavailable: " + error.message;
+            });
+    </script>
+</body>
+</html>
