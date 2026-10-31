@@ -1,60 +1,52 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AS1WD - Mod Updates</title>
+    <meta name="description" content="Alien Shooter: World Domination — Tachyon Project update and download destinations.">
+    <title>AS1WD — Tachyon Project</title>
+    <style>
+        :root { color-scheme: dark; font-family: Segoe UI, Arial, sans-serif; }
+        body { margin: 0; background: #10141c; color: #e8edf5; }
+        main { max-width: 760px; margin: 48px auto; padding: 0 20px; }
+        header, section { background: #1a2230; border: 1px solid #303d50; border-radius: 14px; padding: 22px; margin-bottom: 18px; }
+        h1 { margin: 0 0 8px; font-size: 1.8rem; }
+        h2 { margin-top: 0; font-size: 1.15rem; }
+        .muted { color: #a9b6c8; }
+        .version { display: inline-block; padding: 5px 10px; border-radius: 999px; background: #263b56; color: #d8eaff; font-weight: 600; }
+        ul { padding-left: 22px; margin-bottom: 0; }
+        li { margin: 10px 0; }
+        a { color: #8ec5ff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        footer { color: #8290a3; font-size: .9rem; padding: 10px 4px; }
+    </style>
 </head>
 <body>
-    <h1>Alien Shooter: World Domination</h1>
-    <p id="status">Loading update information...</p>
+<main>
+    <header>
+        <p class="muted">Tachyon Project</p>
+        <h1>Alien Shooter: World Domination</h1>
+        <p><span class="version">Latest version: 1.2.5</span></p>
+        <p>A new version of Alien Shooter: World Domination is available!</p>
+    </header>
 
-    <h2>Download destinations</h2>
-    <ul id="downloads"></ul>
+    <section>
+        <h2>Download destinations</h2>
+        <ul>
+            <li><a href="https://www.moddb.com/mods/alien-shooter-world-domination/downloads" target="_blank" rel="noopener noreferrer">ModDB</a></li>
+            <li><a href="https://www.nexusmods.com/alienshooter/mods/2" target="_blank" rel="noopener noreferrer">Nexus Mods</a></li>
+            <li><a href="https://gamebanana.com/mods/679910" target="_blank" rel="noopener noreferrer">GameBanana</a></li>
+        </ul>
+    </section>
 
-    <h2>Honorable Mentions</h2>
-    <ul id="mentions"></ul>
+    <section>
+        <h2>Honorable mentions</h2>
+        <ul>
+            <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer">Rickroll</a></li>
+        </ul>
+    </section>
 
-    <p><a href="./version.json">View version.json</a></p>
-
-    <script>
-        fetch("./version.json", { cache: "no-store" })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Unable to retrieve version.json");
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById("status").textContent =
-                    "Latest version: " + data.version +
-                    " — " + data.message;
-
-                function addLinks(elementId, items) {
-                    const list = document.getElementById(elementId);
-
-                    (items || []).forEach(item => {
-                        const li = document.createElement("li");
-                        const link = document.createElement("a");
-
-                        link.textContent = item.name;
-                        link.href = item.url;
-                        link.target = "_blank";
-                        link.rel = "noopener noreferrer";
-
-                        li.appendChild(link);
-                        list.appendChild(li);
-                    });
-                }
-
-                addLinks("downloads", data.download_urls);
-                addLinks("mentions", data.honorable_mentions);
-            })
-            .catch(error => {
-                document.getElementById("status").textContent =
-                    "Update information unavailable: " + error.message;
-            });
-    </script>
+    <footer>Update information for AS1WD. The structured update manifest is consumed by the game plugin.</footer>
+</main>
 </body>
 </html>
